@@ -22,7 +22,7 @@ function varargout = Hyperspectral_Scanner(varargin)
 
 % Edit the above text to modify the response to help Hyperspectral_Scanner
 
-% Last Modified by GUIDE v2.5 29-Jan-2018 10:31:22
+% Last Modified by GUIDE v2.5 29-Jan-2018 14:09:52
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -439,10 +439,9 @@ function save_cube_Callback(hObject, eventdata, handles)
 % hObject    handle to save_cube (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-cube = handles.hypercube;
-[file,path] = uiputfile('hypercube.mat','cube');
-
-
+hypercube = handles.hypercube;
+[file,path] = uiputfile('hypercube.mat','hypercube');
+save([path, file], 'hypercube') 
 
 
 % --- Executes on button press in load_cube.
@@ -492,3 +491,25 @@ hold on
 plot(str2num(get(handles.x_value, 'String')), str2num(get(handles.y_value, 'String')), 'r*', 'MarkerSize', 30)
 xlabel('X')
 ylabel('Y')
+
+
+% --- Executes on button press in save_image.
+function save_image_Callback(hObject, eventdata, handles)
+% hObject    handle to save_image (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% fh = figure;
+% copyobj(handles.spectrum_display, fh);
+[file,path] = uiputfile('image_name.jpg');
+export_fig(handles.image_display,'-transparent',[path, file]);
+
+% --- Executes on button press in save_spectrum.
+function save_spectrum_Callback(hObject, eventdata, handles)
+% hObject    handle to save_spectrum (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+fh = figure;
+copyobj(handles.spectrum_display, fh);
+[file,path] = uiputfile('spectrum_name.jpg');
+export_fig(handles.spectrum_display,'-transparent',[path, file]);
+
